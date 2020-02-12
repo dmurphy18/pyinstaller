@@ -351,7 +351,7 @@ def exec_command(*cmdargs, **kwargs):
     # Thus we need to convert that to proper encoding.
     try:
         if encoding:
-            out = out.decode(encoding)
+            out = out.decode(encoding, "replace")
         else:
             # If no encoding is given, assume we're reading filenames from
             # stdout only because it's the common case.
@@ -451,7 +451,7 @@ def exec_command_stdout(*command_args, **kwargs):
     stdout = subprocess.check_output(command_args, **kwargs)
 
     # Return a Unicode string, decoded from this encoded byte array if needed.
-    return stdout if encoding is None else stdout.decode(encoding)
+    return stdout if encoding is None else stdout.decode(encoding, "replace")
 
 
 def exec_command_all(*cmdargs, **kwargs):
@@ -494,8 +494,8 @@ def exec_command_all(*cmdargs, **kwargs):
     # Thus we need to convert that to proper encoding.
     try:
         if encoding:
-            out = out.decode(encoding)
-            err = err.decode(encoding)
+            out = out.decode(encoding, "replace")
+            err = err.decode(encoding, "replace")
         else:
             # If no encoding is given, assume we're reading filenames from
             # stdout only because it's the common case.
